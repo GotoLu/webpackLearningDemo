@@ -1,3 +1,5 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
 	entry: {
@@ -6,7 +8,7 @@ module.exports = {
 	},
 	output: {
 		path: __dirname + '/dist',
-		filename: '[name]_[chunkhash:12].js'
+		filename: '[name].js'
 	},
 	mode: 'development',
 	module: {
@@ -14,12 +16,38 @@ module.exports = {
 			{
 				test: /\.js$/,
 				use: 'babel-loader'
+			}, {
+				test: /\.css$/,
+				use: [
+					'style-loader',
+					'css-loader'
+				]
+			}, {
+				test: /\.less$/,
+				use: [
+					'style-loader',
+					'css-loader',
+					'less-loader'
+				]
+			}, {
+				test: /\.jpg|gif|png|jpeg$/,
+				use: 'file-loader'
+			}, {
+				test: /\.ttf|otf|fon$/,
+				use: 'file-loader'
 			}
 		]
 	},
-	devServer: {
-		contentBase: __dirname + '/dist',
-		compress: true,
-		port: 9000
-	}
+	plugins: [
+		new HtmlWebpackPlugin({
+			chunks: ['index']
+		}),
+		new HtmlWebpackPlugin({
+			title: 'list',
+			filename: 'list.html',
+			template: './src/list.html',
+			chunks: ['list']
+		}),
+		new webpack.HotModuleReplacementPlugin()
+	]
 }
