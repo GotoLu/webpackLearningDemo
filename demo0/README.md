@@ -79,11 +79,22 @@ Webpack
                 title: 'list', // document的title，默认为Webpack App 
                 filename: 'list.html', // 生成的html文件名，默认为index.html 
                 template: './src/list.html', // html文件的模板
-                chunks: \['list'\] // 存在多入口时，可以配置哪些js文件注入到该html中
+                chunks: \['list'\] // 存在多入口时，可以配置哪些js文件注入到该html中,
+                minify: { // html压缩
+                    xxx
+                }
             })
             ```
         *   HotModuleReplaceMentPlugin  
             webpack自带模块，配合devServer使用，当文件发送变化时会自动重新编译打包
+        *   CleanWebpackPlugin
+            每次构建前会清除上次构建生成的产物
+        *   MiniCssExtractPlugin
+            将css文件提取出来，style-loader需要替换成插件的loader
+        *   压缩类
+            *   js压缩 uglifyjs-webpack-plugin
+                webpack4内置,production模式下自动开启
+            *   css压缩 OptimizeCSSAssetsPlugin 以来cssnano处理器
     *   devServer  
         依赖于webpack-dev-server  
         `npm install webpack-dev-server`  
