@@ -18,3 +18,19 @@ Webpack 进阶
     > 1%
     ios 7 # sorry
     ```
+*   移动端适配，px2rem-loader自动将px转换为对应的rem，不过font-size需要借助使用flexible来设置。
+    * px2rem-loader用法，需要在less-loader处理后
+    ```
+    {
+        loader: 'px2rem-loader',
+        options: {
+            remUni: 75, // 1rem = ?px
+            remPrecision: 8  // rem 保留小数点后几位
+        }
+    }
+    ```
+    * flexible 需要安装lib-flexible，而且要内联到html中，这里需要使用raw-loader进行js文本的内联
+    ```
+    // xxx.html script标签注入js
+    ${ require('raw-loader!babel-loader!../node_modules/lib-flexible/flexible.js') }
+    ```
