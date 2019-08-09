@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
-import './list.less';
+import './index.less';
 import img1 from './image/img1.jpg';
 
-class List extends Component {
+class Index extends Component {
 	render() {
 		return (
 			<div className="list-wrap">
-				webpack demo -- List 
+				webpack demo -- Index
 				<img src={img1} />
 				<ul className="list-content">
 					<li className="item">1</li>
@@ -19,4 +19,4 @@ class List extends Component {
 	}
 }
 
-ReactDom.render(<List />, document.getElementById('root'));
+ReactDom.render(<Index />, document.getElementById('root'));
