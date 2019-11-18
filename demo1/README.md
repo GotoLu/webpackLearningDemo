@@ -69,3 +69,57 @@ Webpack 进阶
         }
     }
     ```
+* 提取页面公共资源
+  * html-wepack-externals-plugin
+  ```
+    htmlWebpackExternalsPlugin({
+        externals: [
+            {
+                module: 'jquery',
+                entry: 'dist/jquery.min.js',
+                global: 'jQuery',
+            },
+        ],
+    })
+  ```
+  * splitChunkPlugin
+    * 提取基础库
+    ```
+        optimization: {
+            splitChunks: {
+                cacheGroups: {
+                    commons: {
+                        test: /(react/react-dom)/,
+                        name: 'vendors',
+                        chunks: 'all'
+                    }
+                }
+            }
+        }
+    ```
+    * 提取公共资源
+    ```
+        optimization: {
+            splitChunks: {
+                minSize: 0,
+                cacheGroups: {
+                    commons: {
+                        name: 'common',
+                        chunks: 'all',
+                        minChunks: 2
+                    }
+                }
+            }
+        }
+    ```
+* tree shaking
+  * 只支持es6模块，因为tree shaking利用import模块的操作是在编译阶段完成的，且模块是immutable的特性，它会在编译阶段对无效的代码进行注释，最后会在uglify阶段对这些代码进行擦除。
+  * 特性（DCE-dead code elimination）：
+    * 代码不会被执行，不可到达
+        ```
+            if (false) {
+                console.log('无法执行的代码');
+            }
+        ```
+    * 代码执行的结果不会被用到
+    * 代码只会影响死变量（这个变量只写不读）
